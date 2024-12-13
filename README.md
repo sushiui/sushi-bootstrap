@@ -30,12 +30,6 @@ You can access the Storybook page to view the components and their usage.
 
 [Storybook](https://moomdate.github.io/bs-sushi/?path=/docs/configure-your-project--docs)
 
-## Repository
-
-You can find the project repository at the following URL:
-
-[Bootstrap Sushi Repository](https://git.alm.set/ens/bootstrap-sushi)
-
 ## How to Use
 
 Add `.npmrc` file to the root of your project and add the following line:
