@@ -1,0 +1,36 @@
+include:
+  - project: alm-public/gitlab-ci-template
+    ref: main
+    file: devops-template/.gitlab-ci-template.yml
+
+image: nexus.alm.set:5000/node:20.17.0-bullseye-slim
+
+
+
+stages:
+  - publish-npm
+  - build-storybook
+  - deployment-storybook
+
+publish-npm:
+  stage: publish-npm
+  script:
+    - npm i
+    - npm run release
+
+deploy-pages:
+  stage: build-storybook
+  script:
+    - npm i
+    - npm run build-storybook
+
+deploy-storybook:
+  stage: deployment-storybook
+  script:
+    - echo "Deploying Storybook"
+  artifacts:
+    paths:
+      - storybook-static
+  environment:
+    name: storybook/$CI_COMMIT_REF_SLUG
+    url: https://git.alm.set/ens/$CI_PROJECT_ID/$CI_COMMIT_REF_SLUG/storybook/
