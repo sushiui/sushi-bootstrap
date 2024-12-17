@@ -28,7 +28,9 @@ Repository: [Bootstrap Sushi Repository](https://github.com/sushiui/sushi-bootst
 
 You can access the Storybook page to view the components and their usage.
 
-[Storybook](https://moomdate.github.io/bs-sushi/?path=/docs/configure-your-project--docs)
+![Storybook screen](assets/preview.jpg)
+
+📕 [Storybook](https://sushiui.github.io/sushi-bootstrap/)
 
 ## How to Use
 
