@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
 // Import external resources (make sure they're being loaded properly)
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import url('https://sushiui.github.io/sushi/assets/css/base.min.css');
@@ -5,7 +8,9 @@
 @import url('https://sushiui.github.io/sushi/assets/css/sushi-icon.css');
 
 // Custom Sushi styles import
-@import "sushi-class";
+@include meta.load-css("sushi-class");
+
+// @use "sass:color";
 
 // Primary
 $primary-yellow: #fcb034;
@@ -75,32 +80,44 @@ $theme-colors: (
 );
 
 $button-gradients: (
-        'primary': $gradient-yellow,
-        'secondary': $gradient-white,
-        'success': linear-gradient(180deg, $tertiary-yellow-green-60 0%, $tertiary-yellow-green-100 88.02%),
-        'info': linear-gradient(180deg, $tertiary-sky-blue-60 0%, $tertiary-sky-blue-100 88.02%),
-        'warning': linear-gradient(180deg, $tertiary-orange-60 0%, $tertiary-orange-100 88.02%),
-        'danger': linear-gradient(180deg, $tertiary-purplish-red-60 0%, $tertiary-purplish-red-100 88.02%)
+    'primary': $gradient-yellow,
+    'secondary': $gradient-white,
+    'success': linear-gradient(180deg, $tertiary-yellow-green-60 0%, $tertiary-yellow-green-100 88.02%),
+    'info': linear-gradient(180deg, $tertiary-sky-blue-60 0%, $tertiary-sky-blue-100 88.02%),
+    'warning': linear-gradient(180deg, $tertiary-orange-60 0%, $tertiary-orange-100 88.02%),
+    'danger': linear-gradient(180deg, $tertiary-purplish-red-60 0%, $tertiary-purplish-red-100 88.02%)
+);
+
+$button-gradients-hover:(
+    'primary': $primary-yellow,
+    'secondary': $tertiary-gray-10, 
+    'success': $tertiary-yellow-green-100,
+    'info': $tertiary-sky-blue-100,
+    'warning': $tertiary-orange-100,
+    'danger': $tertiary-purplish-red-100,
 );
 
 $button-text-colors: (
-        'primary': $primary-black,
-        'secondary': $primary-black,
-        'success': $primary-black,
-        'info': $primary-white,
-        'warning': $primary-black,
-        'danger': $primary-white
+    'primary': $primary-black,
+    'secondary': $primary-black,
+    'success': $primary-black,
+    'info': $primary-white,
+    'warning': $primary-white,
+    'danger': $primary-white
 );
 
 @each $color, $gradient in $button-gradients {
-        .btn-#{$color} {
-                background: $gradient;
-                color: map-get($button-text-colors, $color);
+    .btn-#{$color} {
+        background: $gradient;
+        color: map.get($button-text-colors, $color);
+        transition: none;
+        border: none;
 
-                &:hover {
-                        color: map-get($button-text-colors, $color);
-                }
+        &:hover {
+            background: map.get($button-gradients-hover, $color);
+            color: map.get($button-text-colors, $color);
         }
+    }
 }
 
 // Other custom variables
@@ -114,7 +131,8 @@ $border-radius-pill: 33.5rem !default;
 // Link
 
 $link-color: hsl(191, 100%, 40%) !default;
-$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-color: color.adjust($link-color, $lightness: -15%) !default;
+
 $link-decoration: none !default;
 
 // Background
@@ -133,6 +151,6 @@ $pagination-border-radius: 6px;
 $pagination-color: $darkness;
 $pagination-active-color: $darkness;
 $pagination-active-bg: $white;
-$pagination-active-border-color: map-get($theme-colors, 'primary');
+$pagination-active-border-color: map.get($theme-colors, 'primary');
 $pagination-border-width:  1px;
 $pagination-padding-x:   0.90rem;
